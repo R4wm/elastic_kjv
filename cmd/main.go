@@ -37,6 +37,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("Wrote %d bytes to %s: ", written, *filePath)
+	fmt.Printf("Wrote %d bytes to %s\n: ", written, *filePath)
 
 }
