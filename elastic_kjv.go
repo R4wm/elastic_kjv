@@ -21,8 +21,8 @@ type ElasticVerse struct {
 }
 
 // PullFromSQL pulls datas from sql and returns array of ElasticVerse objects
-func PullFromSQL() ([]ElasticVerse, error) {
-	dbFile := "/home/rmintz/kjv.db"
+func PullFromSQL(dbFile string) ([]ElasticVerse, error) {
+
 	bulk := []ElasticVerse{}
 
 	// Connect
