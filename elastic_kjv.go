@@ -72,7 +72,6 @@ func CreateESBulkPost(ebulk *[]ElasticVerse) (bytes.Buffer, error) {
 	type ESIndex struct {
 		Index struct {
 			Index string `json:"_index"`
-			Type  string `json:"_type"`
 			ID    int    `json:"_id"`
 		} `json:"index"`
 	}
@@ -81,7 +80,6 @@ func CreateESBulkPost(ebulk *[]ElasticVerse) (bytes.Buffer, error) {
 	for _, v := range *ebulk {
 		singleItem := ESIndex{}
 		singleItem.Index.Index = "bible"
-		singleItem.Index.Type = "kjv"
 		singleItem.Index.ID = v.LinearOrderedVerse
 
 		// fmt.Printf("%#v\n", singleItem)
