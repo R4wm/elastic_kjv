@@ -23,6 +23,7 @@ func main() {
 
 	var buf bytes.Buffer
 	query := map[string]interface{}{
+		"size": 1000,
 		"query": map[string]interface{}{
 			"match": map[string]interface{}{
 				"text": stringArg,
