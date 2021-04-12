@@ -4,18 +4,18 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"log"
-	"os"
 	"strings"
 
 	"github.com/elastic/go-elasticsearch/v7"
 )
 
 func main() {
-
-	args := os.Args
-	stringArg := strings.Join(args[1:], " ")
+	var resultSize = flag.Int("size", 10, "set results count limit")
+	flag.Parse()
+	stringArg := strings.Join(flag.Args()[:], " ")
 
 	es, _ := elasticsearch.NewDefaultClient()
 	// log.Println(elasticsearch.Version)
@@ -23,7 +23,7 @@ func main() {
 
 	var buf bytes.Buffer
 	query := map[string]interface{}{
-		"size": 1000,
+		"size": *resultSize,
 		"query": map[string]interface{}{
 			"match": map[string]interface{}{
 				"text": stringArg,
