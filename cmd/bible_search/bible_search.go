@@ -7,15 +7,23 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"strings"
 
 	"github.com/elastic/go-elasticsearch/v7"
+	"github.com/r4wm/elastic_kjv/query"
 )
 
 func main() {
 	var resultSize = flag.Int("size", 10, "set results count limit")
 	flag.Parse()
-	stringArg := strings.Join(flag.Args()[:], " ")
+	// stringArg := strings.Join(flag.Args()[:], " ")
+	// query := map[string]interface{}{
+	// 	"size": *resultSize,
+	// 	"query": map[string]interface{}{
+	// 		"match": map[string]interface{}{
+	// 			"text": stringArg,
+	// 		},
+	// 	},
+	// }
 
 	es, _ := elasticsearch.NewDefaultClient()
 	// log.Println(elasticsearch.Version)
@@ -25,8 +33,9 @@ func main() {
 	query := map[string]interface{}{
 		"size": *resultSize,
 		"query": map[string]interface{}{
-			"match": map[string]interface{}{
-				"text": stringArg,
+			"query_string": map[string]interface{}{
+				"default_field": "text",
+				"query":         query.GetQueryString(flag.Args()[:]),
 			},
 		},
 	}
