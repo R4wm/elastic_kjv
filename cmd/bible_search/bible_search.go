@@ -14,6 +14,7 @@ import (
 
 func main() {
 	var resultSize = flag.Int("size", 10, "set results count limit")
+	var jsonOut = flag.Bool("json", false, "output json")
 	flag.Parse()
 	// stringArg := strings.Join(flag.Args()[:], " ")
 	// query := map[string]interface{}{
@@ -63,6 +64,14 @@ func main() {
 		log.Printf("Error parsint the response body: %s", err)
 	}
 
+	// json out
+	if *jsonOut {
+		jsonResult, _ := json.Marshal(r["hits"])
+		fmt.Println(string(jsonResult))
+		return
+	}
+
+	// plain text out
 	for _, hit := range r["hits"].(map[string]interface{})["hits"].([]interface{}) {
 		book := hit.(map[string]interface{})["_source"].(map[string]interface{})["book"]
 		text := hit.(map[string]interface{})["_source"].(map[string]interface{})["text"]
