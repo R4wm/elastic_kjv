@@ -1,7 +1,58 @@
 # bible_search
 
-A quick way to search keywords in the bible
+TL;DR: A quick way to search keywords in the bible
 
+A command line tool to query ES bible index
+- json out or plain text
+- set the size of results you want
+  - so for "top 3" `-size 3`
+
+
+### Usage
+```bash
+
+$ go run bible_search.go -h
+Usage of /tmp/go-build793390229/b001/exe/bible_search:
+  -json
+    	output json
+  -size int
+    	set results count limit (default 10)
+
+```
+
+### json output
+```json
+
+00:35 $ go run bible_search.go -size 1 -json mystery   | jq . 
+{
+  "hits": [
+    {
+      "_id": "29741",
+      "_index": "bible",
+      "_score": 9.619158,
+      "_source": {
+        "book": "1TIMOTHY",
+        "chapter": 3,
+        "linearOrderedChapter": 54,
+        "linearOrderedVerse": 29741,
+        "testament": "NEW",
+        "text": "Holding the mystery of the faith in a pure conscience.",
+        "verse": 9
+      },
+      "_type": "_doc"
+    }
+  ],
+  "max_score": 9.619158,
+  "total": {
+    "relation": "eq",
+    "value": 22
+  }
+}
+✔ ~/go/src/github.com/r4wm/elastic_kjv/cmd/bible_search [json_output L|✚ 1]
+```
+
+
+### plain text output
 ```bash
 
 ✔ ~/go/src/github.com/r4wm/elastic_kjv [master|✔] 
