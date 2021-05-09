@@ -31,6 +31,12 @@ func esWordsSearch(w http.ResponseWriter, r *http.Request) {
 
 	jsonResult := query.MakeAndQuery(strings.Split(queryStr, " "), resultSize, requestedJson == "true")
 
+	if requestedJson == "true" {
+		w.Header().Set("Content-Type", "application/json")
+	} else {
+		w.Header().Set("Content-Type", "text/plain")
+	}
+
 	w.Write([]byte(jsonResult))
 }
 
