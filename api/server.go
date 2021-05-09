@@ -16,6 +16,11 @@ func esWordsSearch(w http.ResponseWriter, r *http.Request) {
 	}
 
 	queryStr := r.FormValue("q")
+	if len(queryStr) <= 0 {
+		w.Write([]byte("i think your missing search argument.."))
+		return
+	}
+
 	requestedJson := r.FormValue("json")
 	var resultSize int64
 
